@@ -1,0 +1,256 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Django ORM &mdash; hstk-blog 0.1 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="CPU个数，核数，逻辑CPU个数" href="CPU个数，核数和逻辑CPU数.html" />
+    <link rel="prev" title="HSTK" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> hstk-blog
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Django ORM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CPU个数，核数和逻辑CPU数.html">CPU个数，核数，逻辑CPU个数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mysql_per.html">mysql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uwsgi配置优化.html">基础配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="国内开源镜像站点.html">国内开源镜像站点汇总</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">hstk-blog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Django ORM</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/django-orm.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="django-orm">
+<h1>Django ORM<a class="headerlink" href="#django-orm" title="永久链接至标题">¶</a></h1>
+<div class="section" id="order-by">
+<h2>order_by<a class="headerlink" href="#order-by" title="永久链接至标题">¶</a></h2>
+<p>后一个 order_by 将覆盖前一个 order_by ，想要直接使前面的 order_by 失效（比如说，某个models的meta中有ordering属性）那么
+在最后加 order_by() ，这将使得生产的 sql 语句的 order_by 部分变成 <strong>order by null</strong></p>
+</div>
+<div class="section" id="annotate-and-values">
+<h2>annotate and values<a class="headerlink" href="#annotate-and-values" title="永久链接至标题">¶</a></h2>
+<p>和使用 filter() 子句一样，作用于某个查询的annotate() 和  values() 子句的使用顺序是非常重要的。如果values() 子句在  annotate() 之前，就会根据 values()  子句产生的分组来计算注解。</p>
+<p>但是，如果  annotate()  子句在 values()子句之前，就会根据整个查询集生成注解。在这种情况下，values() 子句只能限制输出的字段范围。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>-- City.objects.values(&#39;population&#39;).annotate(Count(&#39;id&#39;))
+SELECT `blog_city`.`population`, COUNT(`blog_city`.`id`) AS `id__count`
+FROM `blog_city`
+GROUP BY `blog_city`.`population`, `blog_city`.`name`
+ORDER BY `blog_city`.`name` ASC  LIMIT 21
+
+-- City.objects.values(&#39;population&#39;).annotate(Count(&#39;id&#39;)).order_by()
+SELECT `blog_city`.`population`, COUNT(`blog_city`.`id`) AS `id__count`
+FROM `blog_city`
+GROUP BY `blog_city`.`population`
+ORDER BY NULL  LIMIT 21
+
+-- City.objects.values(&#39;id&#39;, &#39;population&#39;).annotate(Count(&#39;id&#39;))
+SELECT `blog_city`.`id`, `blog_city`.`population`, COUNT(`blog_city`.`id`) AS `id__count`
+FROM `blog_city`
+GROUP BY `blog_city`.`id`
+ORDER BY `blog_city`.`name` ASC  LIMIT 21
+
+-- City.objects.values( &#39;population&#39;, &#39;name&#39;).annotate(Count(&#39;id&#39;))
+SELECT `blog_city`.`population`, `blog_city`.`name`, COUNT(`blog_city`.`id`) AS `id__count`
+FROM `blog_city`
+GROUP BY `blog_city`.`population`, `blog_city`.`name`
+ORDER BY `blog_city`.`name` ASC
+LIMIT 21
+
+-- City.objects.annotate(Count(&#39;id&#39;))
+SELECT `blog_city`.`id`, `blog_city`.`name`, `blog_city`.`country_id`, `blog_city`.`population`, COUNT(`blog_city`.`id`) AS `id__count`
+FROM `blog_city`
+GROUP BY `blog_city`.`id`
+ORDER BY `blog_city`.`name` ASC
+LIMIT 21
+
+-- City.objects.annotate(city_id=F(&#39;id&#39;))
+SELECT `blog_city`.`id`, `blog_city`.`name`, `blog_city`.`country_id`, `blog_city`.`population`, `blog_city`.`id` AS `city_id`
+FROM `blog_city`
+ORDER BY `blog_city`.`name` ASC
+LIMIT 21
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="CPU个数，核数和逻辑CPU数.html" class="btn btn-neutral float-right" title="CPU个数，核数，逻辑CPU个数" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="HSTK" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, hstk
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
