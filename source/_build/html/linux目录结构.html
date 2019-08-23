@@ -1,0 +1,222 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Linux 文件目录 &mdash; hstk-blog 0.1 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> hstk-blog
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="django-orm.html">Django ORM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CPU个数，核数和逻辑CPU数.html">CPU个数，核数，逻辑CPU个数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mysql_per.html">mysql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uwsgi配置优化.html">基础配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="国内开源镜像站点.html">国内开源镜像站点汇总</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">hstk-blog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Linux 文件目录</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/linux目录结构.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="linux">
+<h1>Linux 文件目录<a class="headerlink" href="#linux" title="永久链接至标题">¶</a></h1>
+<p>文件系统层次结构标准(Filesystem Hierarchy Standard, FHS)(<a class="reference external" href="https://zh.wikipedia.org/wiki/文件系统层次结构标准">维基百科</a>)</p>
+<div class="section" id="id3">
+<h2>目录结构<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>/bin/ 需要在单用户模式可用的必要命令（可执行文件）；面向所有用户，例如： <code class="docutils literal notranslate"><span class="pre">cat</span></code>、 <code class="docutils literal notranslate"><span class="pre">ls</span></code>、 <code class="docutils literal notranslate"><span class="pre">cp</span></code>。</p></li>
+<li><p>/boot/ 引导程序文件，例如： <code class="docutils literal notranslate"><span class="pre">kernel</span></code>、<code class="docutils literal notranslate"><span class="pre">initrd</span></code>；时常是一个单独的分区</p></li>
+<li><p>/dev/ 必要设备, 例如：<code class="docutils literal notranslate"><span class="pre">/dev/null</span></code>, <code class="docutils literal notranslate"><span class="pre">/dev/tty</span></code></p></li>
+<li><p>/etc/ 特定主机，系统范围内的配置文件。关于这个名称当前有争议。在贝尔实验室关于UNIX实现文档的早期版本中，/etc 被称为etcetera，这是由于过去此目录中存放所有不属于别处的所有东西（然而，FHS限制/etc存放静态配置文件，不能包含二进制文件）。自从早期文档出版以来，目录名称已被以各种方式重新称呼。最近的解释包括反向缩略语如：”可编辑的文本配置”（英文 “Editable Text Configuration”）或”扩展工具箱”（英文 “Extended Tool Chest”)。</p></li>
+</ul>
+<p>/bin/ and /usr/bin/ store user commands.
+/boot/ contains files used for system startup including the kernel.
+/dev/ contains device files
+/etc/ is where configuration files and directories are located.
+/home/ is the default location for users‟ home directories.
+/initrd/ is used to load required device modules and mount the initrd.img image file during system startup.
+/lib/ and /usr/lib/ hold library files used by programs in /bin/ and /sbin/.
+/lost+found/ holds orphaned files (files without names) found by fsck
+/mnt/ holds the mount points for file systems that were mounted after boot.
+/opt/ is used primarily for installation and unintallation of third-party software. Holds optional files and programs.
+/proc/ is a virtual directory (not actually stored on the disk) which holds system information required by certain programs.
+/root/ is the home directory of the superuser “root”
+/sbin/ and /usr/sbin/ store system commands.
+/tmp/ is the system temporary directory. All users have read+write access to /tmp/.
+/usr/ contains files related to users such as application files and related library files (“usr” is an acronym that stands for UNIX system resources).
+/var/ (as in “variable”) holds files and directories that are constantly changing such as printer spools and log files.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, hstk
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

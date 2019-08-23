@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>基础配置 &mdash; hstk-blog 0.1 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="国内开源镜像站点汇总" href="国内开源镜像站点.html" />
+    <link rel="prev" title="mysql" href="mysql_per.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> hstk-blog
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="django-orm.html">Django ORM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CPU个数，核数和逻辑CPU数.html">CPU个数，核数，逻辑CPU个数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mysql_per.html">mysql</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基础配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="国内开源镜像站点.html">国内开源镜像站点汇总</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">hstk-blog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>基础配置</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/uwsgi配置优化.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>基础配置<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="uwgsi">
+<h2>关于uwgsi优化配置注意事项：<a class="headerlink" href="#uwgsi" title="永久链接至标题">¶</a></h2>
+<ol class="arabic">
+<li><p>线程不能随意的开启，如果非要开启的话，记得需要开启异步处理项,如下:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enable</span><span class="o">-</span><span class="n">threads</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">threads</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="k">async</span> <span class="o">=</span> <span class="mi">4</span>
+</pre></div>
+</div>
+</li>
+<li><dl class="simple">
+<dt>&lt;listen&gt;2048&lt;/listen&gt;项是提高并发的关键参数，参数过小的，并发大的时候请求就容易被丢弃处理修改</dt><dd><p>这个值的方式是：可以通过 /proc/sys/net/somaxconn 和 /proc/sys/net/ipv4/tcp_max_syn_backlog 对TCP
+socket进行调整修改系统参数修改/etc/sysctl.conf文件,添加或者修改这几个参数值对于一个经常处理新连接的高负载web服务环境来说，
+默认的 128 太小了net.core.somaxconn = 262144表示SYN队列的长度，默认为1024，加大队列长度为8192，
+可以容纳更多等待连接的网络连接数net.ipv4.tcp_max_syn_backlog =8192网卡设备将请求放入
+队列的长度net.core.netdev_max_backlog = 65536 修改完成之后要记得 sysctl -p 重新加载参数</p>
+</dd>
+</dl>
+</li>
+<li><p>增加（或减少）超时时间是重要的，修改socket监听队列大小也是如此。</p></li>
+<li><p>考虑线程。如果你不需要线程，那么不要启用它们。</p></li>
+<li><p>总是记住在生产环境上启用master进程。见 ProcessManagement 。</p></li>
+<li><dl class="simple">
+<dt>增加worker不是意味着“增加性能”，因此，基于你的应用的性质，为 workers 选项选择一个合适的值</dt><dd><p>(受IO限制，受CPU限制，IO等待……),processes = 2 * cpucores 最佳processes 设置值</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>post-buffering的配置可以有效帮应用自动读取相关POST提交请求体信息.打开http body缓冲, 如果HTTP</dt><dd><p>body的大小超过指定的限制,那么就保存到磁盘上.</p>
+</dd>
+</dl>
+</li>
+<li><p>检查应用的内存使用 memory-report</p></li>
+<li><p>建议不要以root用户运行uWSGI实例。如果非要你可以作为建议确保确保使用 uid 和 gid 选项来移除权限。</p></li>
+<li><p>如果 (Linux) 服务器似乎有大量的idle状态的worker，但性能仍然不佳，需要看看 ip_conntrack_max 系统变量
+(/proc/sys/net/ipv4/ip_conntrack_max) 的值，然后增加它以看看是否有帮助。</p></li>
+<li><p>如果uwsgi日志中开始收到”invalid request block size”，这可能意味着你需要更大的缓存了。
+通过buffer-size 选项来增加它（最大值为65535）。</p></li>
+<li><p>async: 打开异步模式</p></li>
+<li><p>buffer-size 为分析uwsgi包准备的内部缓冲区大小,默认是4K</p>
+<ul class="simple">
+<li><p>buffer-size 32768</p></li>
+<li><p>s 指定unix socket路径或者tcp 的地址和端口号</p></li>
+<li><p>p worker进程数量</p></li>
+<li><p>d daemonize</p></li>
+</ul>
+</li>
+<li><p>在10s钟内没有活动就关闭连接:–socket-timeout 10 (默认是4s)</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="国内开源镜像站点.html" class="btn btn-neutral float-right" title="国内开源镜像站点汇总" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mysql_per.html" class="btn btn-neutral float-left" title="mysql" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, hstk
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

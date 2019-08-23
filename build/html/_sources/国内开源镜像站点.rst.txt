@@ -1,5 +1,5 @@
 国内开源镜像站点汇总
-==================
+==============================
 
 - 搜狐开源镜像站：http://mirrors.sohu.com/
 - 网易开源镜像站：http://mirrors.163.com/
@@ -12,6 +12,7 @@
 - 山东理工大学：http://mirrors.sdutlinux.org/
 - 哈尔滨工业大学：http://run.hit.edu.cn/
 - 中国地质大学：http://cugbteam.org/
+
 大连理工大学：http://mirror.dlut.edu.cn/
 西南林业大学 http://cs3.swfu.edu.cn/cs3guide.html
 北京化工大学（仅教育网可以访问），包含 CentOS 镜像：http://ubuntu.buct.edu.cn/
@@ -70,3 +71,5 @@ npm
 -----
 
 - cnpmjs：http://cnpmjs.org/
+
+
