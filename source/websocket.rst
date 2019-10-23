@@ -65,7 +65,7 @@ nginx 配置
 
 否则当做http请求处理
 
-:: note nginx转到`websocket`的协议虽然是*http*的，但是内部`daphne`应该是有所转化的
+.. Note:: nginx转到`websocket`的协议虽然是*http*的，但是内部`daphne`应该是有所转化的
 
 apache 配置
 ---------------------

@@ -19,3 +19,9 @@ location
 
 正则匹配，匹配顺序为location在配置文件中出现的顺序。如果匹配到某个正则location，则停止，并使用这个location的配置；否则，使用步骤2中得到的具有最大字符串匹配的location配置。
 
+
+
+
+.. _一文读懂什么是Nginx:
+	http://www.52im.net/thread-2600-1-1.html
+
