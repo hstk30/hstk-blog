@@ -14,7 +14,11 @@ df: 用于显示磁盘分区上的可使用的磁盘空间.常用``df -h[a]`` ::
     tmpfs                        1.6G   32K  1.6G   1% /run/user/108
     tmpfs                        1.6G     0  1.6G   0% /run/user/1000
 
-du: 对文件和目录磁盘使用的空间的查看.未指定参数会递归显示当前文件夹下所有文件的大小.常用``du -h[s] [file]`` ::
+du: 对文件和目录磁盘使用的空间的查看.未指定参数会递归显示当前文件夹下所有文件的大小.常用
+``du -h[s] [file]`` 
+``du -h --max-depth=1``
+``du --max-depth=1 | sort -nk 1``
+::
     ...
     6.3M    ./.git
     44K ./build/html/_sources
