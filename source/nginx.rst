@@ -21,6 +21,21 @@ location
 正则匹配，匹配顺序为location在配置文件中出现的顺序。如果匹配到某个正则location，则停止，并使用这个location的配置；否则，使用步骤2中得到的具有最大字符串匹配的location配置。
 
 
+各种timeout 
+--------------------
+
+*proxy_connect_timeout*
+	Defines a timeout for establishing a connection with a proxied server.Default: 60s
+
+*proxy_read_timeout*
+	Defines a timeout for reading a response from the proxied server. Default: 60s
+
+*proxy_send_timeout*
+	Sets a timeout for transmitting a request to the proxied server. Default: 60s
+
+
+
+
 图片资源缓存
 --------------------
 
